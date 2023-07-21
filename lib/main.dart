@@ -25,11 +25,13 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           title: 'Three65Days',
           theme: ThemeData(
+            scaffoldBackgroundColor: AppConst.kLight,
             colorScheme: ColorScheme.fromSeed(seedColor: AppConst.kBlueLight),
             useMaterial3: true,
           ),
+          //themeMode: ThemeMode.dark,
           debugShowCheckedModeBanner: false,
-          home: const OnBoarding(),
+          home: const HomePage(),
         );
       }
     );
