@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:three65days/common/utils/AppConst.dart';
 import 'package:three65days/common/widgets/AppStyle.dart';
 
@@ -25,18 +26,22 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: AppConst.kWidth * 0.9,
+
       decoration: BoxDecoration(
         //color: AppConst.kBlueLight,
         border: Border.all(),
           borderRadius: BorderRadius.all(Radius.circular(AppConst.kRadius)),
       ),
       child: TextFormField(
+
         keyboardType: keyboardType,
         controller: controller,
-        cursorHeight: 25,
+        cursorHeight: 20,
         onChanged: onChanged,
-        style: AppStyle(18, AppConst.kBkDark, FontWeight.w700),
+        style: AppStyle(15, AppConst.kBkDark, FontWeight.w700),
         decoration: InputDecoration(
+
+
           hintText: hintText,
           suffixIcon: suffixIcon,
           prefixIcon: prefixIcon,
@@ -53,7 +58,7 @@ class CustomTextField extends StatelessWidget {
               borderSide: BorderSide(color: AppConst.kGreyDk, width: 0.5)),
           enabledBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.zero,
-              borderSide: BorderSide(color: AppConst.kLight, width: 0.5)),
+              borderSide: BorderSide(color: Colors.transparent, width: 0.5)),
         ),
       ),
     );
