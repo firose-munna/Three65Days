@@ -9,6 +9,7 @@ import 'package:three65days/common/widgets/ExpansionTile.dart';
 import 'package:three65days/common/widgets/HeightSpacer.dart';
 import 'package:three65days/common/widgets/ReuseableText.dart';
 import 'package:three65days/common/widgets/WidthSpacer.dart';
+import 'package:three65days/features/todo/controller/XpansionProvider.dart';
 import 'package:three65days/features/todo/widgets/TodoTiles.dart';
 
 class HomePage extends ConsumerStatefulWidget {
@@ -18,7 +19,8 @@ class HomePage extends ConsumerStatefulWidget {
   ConsumerState<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends ConsumerState<HomePage> with TickerProviderStateMixin{
+class _HomePageState extends ConsumerState<HomePage>
+    with TickerProviderStateMixin {
   final TextEditingController searchController = TextEditingController();
   late TabController tabController = TabController(length: 2, vsync: this);
 
@@ -88,115 +90,150 @@ class _HomePageState extends ConsumerState<HomePage> with TickerProviderStateMix
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: ListView(
-
-                children:  [
+                children: [
                   const HeightSpacer(height: 25),
                   Row(
                     //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Icon(FontAwesome.tasks, color: AppConst.kBkDark,),
+                      const Icon(
+                        FontAwesome.tasks,
+                        color: AppConst.kBkDark,
+                      ),
                       const WidthSpacer(width: 20),
-                      ReusableText(text: "Today's Task", style: AppStyle(18, AppConst.kBkDark, FontWeight.bold))
+                      ReusableText(
+                          text: "Today's Task",
+                          style:
+                              AppStyle(18, AppConst.kBkDark, FontWeight.bold))
                     ],
                   ),
-
                   const HeightSpacer(height: 25),
-
                   Container(
                     decoration: BoxDecoration(
-                      color: AppConst.kBkDark,
-                      borderRadius: BorderRadius.all(Radius.circular(AppConst.kRadius))
-
-                    ),
+                        color: AppConst.kBkDark,
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(AppConst.kRadius))),
                     child: TabBar(
                       indicatorSize: TabBarIndicatorSize.label,
                       indicator: BoxDecoration(
                         color: AppConst.kGreyLight,
-                        borderRadius: BorderRadius.all(Radius.circular(AppConst.kRadius)),
-
+                        borderRadius:
+                            BorderRadius.all(Radius.circular(AppConst.kRadius)),
                       ),
                       controller: tabController,
                       isScrollable: false,
                       unselectedLabelColor: AppConst.kLight,
                       labelColor: AppConst.kBlueLight,
-                      labelStyle: AppStyle(24, AppConst.kLight, FontWeight.w700),
+                      labelStyle:
+                          AppStyle(24, AppConst.kLight, FontWeight.w700),
                       labelPadding: EdgeInsets.zero,
-
                       tabs: [
                         Tab(
                           child: SizedBox(
-                            width: AppConst.kWidth*0.5,
+                            width: AppConst.kWidth * 0.5,
                             child: Center(
-                              child: ReusableText(text: "Pending", style: AppStyle(16, AppConst.kLight, FontWeight.bold)),
+                              child: ReusableText(
+                                  text: "Pending",
+                                  style: AppStyle(
+                                      16, AppConst.kLight, FontWeight.bold)),
                             ),
                           ),
-                          
                         ),
                         Tab(
                           child: Container(
                             padding: EdgeInsets.only(left: 30.w),
-                            width: AppConst.kWidth*0.5,
+                            width: AppConst.kWidth * 0.5,
                             child: Center(
-                              child: ReusableText(text: "Completed", style: AppStyle(16, AppConst.
-                                  kLight, FontWeight.bold)),
+                              child: ReusableText(
+                                  text: "Completed",
+                                  style: AppStyle(
+                                      16, AppConst.kLight, FontWeight.bold)),
                             ),
                           ),
-
                         )
                       ],
                     ),
                   ),
                   const HeightSpacer(height: 20),
-
                   SizedBox(
                     width: AppConst.kWidth,
-                    height: AppConst.kHeight*0.3,
+                    height: AppConst.kHeight * 0.3,
                     child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(AppConst.kRadius)),
+                      borderRadius:
+                          BorderRadius.all(Radius.circular(AppConst.kRadius)),
                       child: TabBarView(
                         controller: tabController,
                         children: [
                           Container(
                             color: AppConst.kBkDark,
-                            height: AppConst.kHeight*0.3,
-
+                            height: AppConst.kHeight * 0.3,
                             child: ListView(
-                              children: const [
+                              children: [
                                 TodoTile(
                                   start: "3:00",
                                   end: "9:00",
+                                  switcher: Switch(
+                                      value: true, onChanged: (value) {}),
                                 )
                               ],
                             ),
                           ),
                           Container(
                             color: AppConst.kGreyLight,
-                            height: AppConst.kHeight*0.3,
+                            height: AppConst.kHeight * 0.3,
                           )
                         ],
                       ),
                     ),
                   ),
-
                   const HeightSpacer(height: 20),
-
-                  const XpansionTile(
+                  XpansionTile(
                       text: "Tomorrow's Task",
                       text2: "Tomorrow's tasks are shown here",
-                      children: []),
+                      onExpansionChanged: (bool expanded) {
+                        ref
+                            .read(xpansionStateProvider.notifier)
+                            .setStart(!expanded);
+                      },
+                      trailing: Padding(
+                        padding: EdgeInsets.only(right: 12.w),
+                        child: ref.watch(xpansionStateProvider)
+                            ? const Icon(AntDesign.circledown, color: AppConst.kLight,)
+                            : const Icon(AntDesign.closecircleo, color: AppConst.kYellow,),
+                      ),
+                      children: [
+                        TodoTile(
+                          start: "3:00",
+                          end: "9:00",
+                          switcher: Switch(
+                              value: true, onChanged: (value) {}),
+                        )
+                      ]),
                   const HeightSpacer(height: 20),
-
-
                   XpansionTile(
-                      text: DateTime.now().add(const Duration(days: 8)).toString().substring(5,10),
+                      text: DateTime.now()
+                          .add(const Duration(days: 8))
+                          .toString()
+                          .substring(5, 10),
                       text2: "Day After tomorrow tasks",
-                      children: []),
-
-
-
-
-
-
+                      onExpansionChanged: (bool expanded) {
+                        ref
+                            .read(xpansionState0Provider.notifier)
+                            .setStart(!expanded);
+                      },
+                      trailing: Padding(
+                        padding: EdgeInsets.only(right: 12.w),
+                        child: ref.watch(xpansionState0Provider)
+                            ? const Icon(AntDesign.circledown, color: AppConst.kLight,)
+                            : const Icon(AntDesign.closecircleo, color: AppConst.kYellow,),
+                      ),
+                      children: [
+                        TodoTile(
+                          start: "3:00",
+                          end: "9:00",
+                          switcher: Switch(
+                              value: true, onChanged: (value) {}),
+                        )
+                      ]),
                 ],
               ),
             ),

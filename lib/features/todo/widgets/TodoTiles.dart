@@ -16,7 +16,7 @@ class TodoTile extends StatelessWidget {
       this.start,
       this.end,
       this.editWidget,
-      this.delete});
+      this.delete, this.switcher});
 
   final Color? color;
   final String? title;
@@ -24,6 +24,7 @@ class TodoTile extends StatelessWidget {
   final String? start;
   final String? end;
   final Widget? editWidget;
+  final Widget? switcher;
   final void Function()? delete;
 
   @override
@@ -110,6 +111,10 @@ class TodoTile extends StatelessWidget {
                       ),
                     )
                   ],
+                ),
+                Container(
+                  padding: EdgeInsets.only(bottom: 0.h),
+                  child: switcher,
                 )
               ],
             ),
