@@ -20,4 +20,10 @@ class AppConst{
   static double kWidth = 375.w;
   static double kRadius = 12.h;
 
+
+
+
 }
+
+String updateTitle = "";
+String updateDescription = "";

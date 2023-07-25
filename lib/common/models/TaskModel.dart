@@ -12,7 +12,7 @@ class TaskModel {
   String? date;
   String? startTime;
   String? endTime;
-  String? remind;
+  int? remind;
   String? repeat;
 
   TaskModel({

@@ -71,40 +71,21 @@ class TodoTile extends StatelessWidget {
                                 style: AppStyle(
                                     12, AppConst.kLight, FontWeight.bold)),
                             const HeightSpacer(height: 10),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Container(
-                                  width: AppConst.kWidth * 0.3,
-                                  height: 25.h,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                          width: 0.3, color: AppConst.kGreyDk),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(AppConst.kRadius)),
-                                      color: AppConst.kBkDark),
-                                  child: Center(
-                                    child: ReusableText(
-                                        text: "$start | $end",
-                                        style: AppStyle(12, AppConst.kLight,
-                                            FontWeight.normal)),
-                                  ),
-                                ),
-                                const HeightSpacer(height: 20),
-                                Row(
-                                  children: [
-                                    SizedBox(
-                                      child: editWidget,
-                                    ),
-                                    const WidthSpacer(width: 20),
-                                    GestureDetector(
-                                      onTap: delete,
-                                      child: const Icon(
-                                          MaterialCommunityIcons.delete_circle, color: AppConst.kLight,),
-                                    )
-                                  ],
-                                )
-                              ],
+                            Container(
+                              width: AppConst.kWidth * 0.3,
+                              height: 25.h,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      width: 0.3, color: AppConst.kGreyDk),
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(AppConst.kRadius)),
+                                  color: AppConst.kBkDark),
+                              child: Center(
+                                child: ReusableText(
+                                    text: "$start | $end",
+                                    style: AppStyle(12, AppConst.kLight,
+                                        FontWeight.normal)),
+                              ),
                             )
                           ],
                         ),
@@ -112,10 +93,27 @@ class TodoTile extends StatelessWidget {
                     )
                   ],
                 ),
-                Container(
-                  padding: EdgeInsets.only(bottom: 0.h),
-                  child: switcher,
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(bottom: 0.h),
+                      child: switcher,
+                    ),
+                    const HeightSpacer(height: 3),
+                    SizedBox(
+                      child: editWidget,
+                    ),
+                    const HeightSpacer(height: 10),
+                    GestureDetector(
+                      onTap: delete,
+                      child: const Icon(
+                        MaterialCommunityIcons.delete_circle, color: AppConst.kLight,),
+                    )
+
+                  ],
                 )
+
               ],
             ),
           )
