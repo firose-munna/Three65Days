@@ -1,6 +1,8 @@
 # three65days
 
-This is task management project using firebase. It is a flutter project for Android and iOS.
+## Project is running...........
+
+This is task management project using firebase and Sqlite. It is a flutter project for Android and iOS.
 
 ## Getting Started
 
